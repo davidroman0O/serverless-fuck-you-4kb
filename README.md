@@ -96,9 +96,15 @@ console.log(process.env.s3_bucket_name); // bucket-serverless-application-us-eas
 
 You're done.
 
+# How can you get those variables to yml ?
 
+Like this : 
 
+```yaml
+BucketName: ${file(./config/env.js):s3_bucket_name}
+```
 
+You're welcome.
 
 
 
