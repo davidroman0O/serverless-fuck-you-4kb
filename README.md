@@ -47,13 +47,16 @@ Another variable is computed with a string to create your variable. Just keep th
 Back to `./config/env.js`, write this code : 
 
 ```javascript
-module.exports = require("serverless-fuck-you-4kb")({
-    // This is the map function with a key-value support
-	map: (key, value) => {
-        // key == s3_bucket_name from the .env file
-        // value  == bucket from the .env file
-        // process.env.application come from serverless.yml file at provider.environement
-		return value + "-" + process.env.application;
+module.exports = require("../libs/serverless-fuck-you-4kb")({
+	log: true,
+	map: (key, value, environment) => {
+		if (key == "application") {
+			return value;
+		}
+		if (key == "version") {
+			return value;
+		}
+		return value + "-" + environment.application;
 	}
 });
 ```
