@@ -13,6 +13,10 @@ module.exports = (props) => {
 		base[k] = props.map(k, values.parsed[k]);
 	});
 
+	if (props.log) {
+		console.log(`serverless-fuck-you-4kb - log : ${JSON.stringify(base, null, 2)}`);
+	}
+
 	let fncs = {};
 
 	//	And noooow we create functions for our variables

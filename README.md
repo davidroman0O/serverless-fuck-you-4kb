@@ -6,6 +6,10 @@ Allow you to inject every environements variables as you want.
 
 I will make an example and fix my grammar soon
 
+# Note 2 : 
+
+DO NOT USE `serverless-export-env` with this library. It will replace you `.env` and you don't want that!
+
 # Installation
 
 On your Serverless Framework project
