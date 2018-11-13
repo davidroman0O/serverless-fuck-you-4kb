@@ -1,6 +1,6 @@
 {
   "name": "serverless-fuck-you-4kb",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Bring environements variables to lambda and yml",
   "main": "index.js",
   "scripts": {
