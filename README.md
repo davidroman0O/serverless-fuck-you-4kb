@@ -49,13 +49,22 @@ Back to `./config/env.js`, write this code :
 ```javascript
 module.exports = require("../libs/serverless-fuck-you-4kb")({
 	log: true,
+	/*
+		This function is use twice!
+		- during serverless printing : before your serverless.yml is computed
+		- during the injection : at the top of your function
+	*/
 	map: (key, value, environment) => {
 		if (key == "application") {
 			return value;
 		}
-		if (key == "version") {
+		if (key == "region") {
 			return value;
 		}
+		if (key == "stage") {
+			return value;
+		}
+		// We only want other vars to be affected with "application" var
 		return value + "-" + environment.application;
 	}
 });
