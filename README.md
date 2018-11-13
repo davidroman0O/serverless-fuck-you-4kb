@@ -8,7 +8,7 @@ I will make an example and fix my grammar soon
 
 # Note 2 : 
 
-DO NOT USE `serverless-export-env` with this library. It will replace you `.env` and you don't want that!
+DO NOT USE `serverless-export-env` with this library. It will replace your `.env` and you don't want that!
 
 # Installation
 
