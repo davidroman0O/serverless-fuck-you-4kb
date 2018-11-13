@@ -10,6 +10,10 @@ I will make an example and fix my grammar soon
 
 DO NOT USE `serverless-export-env` with this library. It will replace your `.env` and you don't want that!
 
+# Command 
+
+At anytime, you can check your configuration with `sls print --stage dev` or beta or prod. 
+
 # Installation
 
 On your Serverless Framework project
