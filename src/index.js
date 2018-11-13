@@ -23,9 +23,30 @@ module.exports = (props) => {
 	//	And noooow we create functions for our variables
 	Object.keys(values.parsed).forEach(k => {
 		fncs[k] = (serverless) => {
-			cacheServerless = serverless;
-			let mapped = props.map(k, values.parsed[k], serverless.variables.service.provider.environment);
-			console.log(`serverless-fuck-you-4kb - sls - ${k}::${mapped}`);
+
+			// does it useless ??????
+			if (!cacheServerless) {
+				cacheServerless = serverless;
+			}
+
+			// Where can i find a promise to compute deep variable ?
+			// console.log(serverless.variables.populateObject(serverless.service.provider.environment))
+			// console.log(serverless.variables)
+			// Yup... that's dirty and i like it.
+			// does it useless ???
+			let deeps = cacheServerless.variables.deep;
+
+			let mapped = props.map(k, values.parsed[k], cacheServerless.variables.service.provider.environment);
+
+			// deeps.forEach((d, i) => {
+			// 	console.log(i, d);
+			// 	if (mapped.indexOf("${deep:"+i+"}") > -1) {
+			// 		// replace it
+			// 		mapped = mapped.replace("${deep:"+i+"}", d);
+			// 	}
+			// })
+
+			// console.log(`serverless-fuck-you-4kb - sls - ${k}::${mapped}`);
 			return mapped;
 		}
 	});
