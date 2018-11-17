@@ -51,7 +51,7 @@ Another variable is computed with a string to create your variable. Just keep th
 Back to `./config/env.js`, write this code : 
 
 ```javascript
-module.exports = require("../libs/serverless-fuck-you-4kb")({
+module.exports = require("serverless-fuck-you-4kb")({
 	log: true,
 	/*
 		This function is use twice!

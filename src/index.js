@@ -3,6 +3,18 @@
 */
 
 const dotenv = require('dotenv');
+const fs = require("fs");
+
+// function syncGeneratedVariables(serverless) {
+// 	let file = `
+// 	module.exports = ${JSON.stringify(serverless.variables.service.provider.environment, null, 2)}
+// `;
+// 	fs.writeFileSync("./environement.js", file);
+// }
+
+// function getGeneratedVariables() {
+// 	return require("../environement")
+// }
 
 /*
 	@description: return functions to be used with serverless.yml
@@ -27,6 +39,7 @@ module.exports = (props) => {
 			// does it useless ??????
 			if (!cacheServerless) {
 				cacheServerless = serverless;
+				// syncGeneratedVariables(cacheServerless);
 			}
 
 			// Where can i find a promise to compute deep variable ?
@@ -34,7 +47,7 @@ module.exports = (props) => {
 			// console.log(serverless.variables)
 			// Yup... that's dirty and i like it.
 			// does it useless ???
-			let deeps = cacheServerless.variables.deep;
+			// let deeps = cacheServerless.variables.deep;
 
 			let mapped = props.map(k, values.parsed[k], cacheServerless.variables.service.provider.environment);
 
@@ -52,15 +65,33 @@ module.exports = (props) => {
 	});
 
 	fncs["inject"] = (data) => {
-		Object.keys(values.parsed).forEach(k => {
-			let mapped = props.map(k, values.parsed[k], cacheServerless.variables.service.provider.environment);
+		try {
+			// console.log("values.parsed", values);
+			// if (cacheServerless) {
+			// 	console.log(
+			// 		"cacheServerless.variables.service.provider.environment",
+			// 		cacheServerless.variables.service.provider.environment
+			// 	);
+			// }
+
+			// Object.keys(process.env).forEach((k) => {
+			//     console.log(`process.env.${k} - ${process.env[k]}`);
+			// })
+
+			Object.keys(values.parsed).forEach(k => {
+				let mapped = props.map(k, values.parsed[k],
+					cacheServerless ? cacheServerless.variables.service.provider.environment : process.env
+				);
+				if (props.log) {
+					console.log(`serverless-fuck-you-4kb - inject - ${k}::${mapped}`);
+				}
+				process.env[k] = mapped;
+			});
 			if (props.log) {
-				console.log(`serverless-fuck-you-4kb - inject - ${k}::${mapped}`);
+				console.log(`serverless-fuck-you-4kb - log : ${JSON.stringify(base, null, 2)}`);
 			}
-			process.env[k] = mapped;
-		});
-		if (props.log) {
-			console.log(`serverless-fuck-you-4kb - log : ${JSON.stringify(base, null, 2)}`);
+		} catch(e) {
+			console.log("error ", e);
 		}
 	};
 
